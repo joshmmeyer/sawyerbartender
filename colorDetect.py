@@ -70,13 +70,13 @@ def colorDetect(image):
 
 
 	boundaries = [
-		([27, 17, 123], [142, 109, 193]), #red
-		([86, 33, 12], [176, 103, 35]), #blue
-		([29, 50, 18], [108, 127, 58]), #green
-		([85, 113, 144], [16, 173, 183]) #yellow
+		([31, 41, 130], [67, 68, 160]), #red
+		([70, 55, 45], [115, 80, 70]), #blue
+		([74, 128, 105], [100, 150, 133]), #green
+		([40, 156, 170], [60, 177, 190]) #yellow
 	]
 
-	images = [Pos2, Pos4, Pos3, Pos1]
+	images = [Pos1, Pos2, Pos3, Pos4]
 	color_pos = []
 
 	#for "color", red = 1, blue = 2, green = 3, yellow = 4
@@ -105,7 +105,7 @@ def colorDetect(image):
 
 
 def main():
-	color_pos = colorDetect("colortest.jpg")
+	color_pos = colorDetect("bottlecolors.jpg")
 	print(color_pos)
 
 main()
