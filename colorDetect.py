@@ -10,7 +10,14 @@ def colorDetect(image):
 	# ap.add_argument("-i", "--image")
 	# args = vars(ap.parse_args())
 
-	image = cv2.imread(image)
+	img = cv2.imread(image)
+
+	# image=img[415:570, 575:875]
+
+	# cv2.imshow("cropped", image)
+	# cv2.waitKey(0)
+
+	# cv2.imwrite('cropped_image.jpg', image)
 
 	height, width = image.shape[:2]
 
@@ -70,13 +77,13 @@ def colorDetect(image):
 
 
 	boundaries = [
-		([31, 41, 130], [67, 68, 160]), #red
-		([70, 55, 45], [115, 80, 70]), #blue
-		([74, 128, 105], [100, 150, 133]), #green
-		([40, 156, 170], [60, 177, 190]) #yellow
+		([33, 35, 85], [56, 55, 127]), #red
+		([39, 24, 19], [50, 31, 28]), #blue
+		([48, 65, 54], [68, 86, 68]), #green
+		([65, 110, 120], [88, 145, 154]) #yellow
 	]
 
-	images = [Pos1, Pos2, Pos3, Pos4]
+	images = [Pos3, Pos1, Pos4, Pos2]
 	color_pos = []
 
 	#for "color", red = 1, blue = 2, green = 3, yellow = 4
@@ -95,17 +102,27 @@ def colorDetect(image):
 			# cv2.waitKey(0)
 			# print(cv2.countNonZero(mask))
 
-			if cv2.countNonZero(mask) > 100000:
+			if cv2.countNonZero(mask) > 700:
 				color_pos.append(color) 
 
 
 			color = color + 1
 
+	for i in range(0, len(color_pos)):
+		if (color_pos[i]) == 1:
+			color_pos[i] = "red"
+		elif (color_pos[i]) == 2:
+			color_pos[i] = "blue"
+		elif (color_pos[i]) == 3:
+			color_pos[i] = "green"
+		else:
+			color_pos[i] = "yellow"
+
 	return color_pos
 
 
 def main():
-	color_pos = colorDetect("bottlecolors.jpg")
+	color_pos = colorDetect("camera_image.jpeg")
 	print(color_pos)
 
 main()
