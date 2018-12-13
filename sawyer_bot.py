@@ -5,6 +5,8 @@ import argparse
 import cv2
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
+from tkinter import *
+
 
 
 
@@ -310,10 +312,41 @@ def main():
   color_pos=colorDetect('camera_image.jpeg')
   print(color_pos)
 
-  recipe_2(color_pos)
+  #recipe_2(color_pos)
   #get_replace_bottle(0,True)
   #pour_bottle(2)
-  #get_replace_bottle(0,False)
+  #get_replace_bottle(0,False)    
+  root = Tk()
+  recipe=0
+'''
+  def recipe1():
+      global recipe
+      recipe = 1
+      root.quit()
+
+  def recipe2():
+      global recipe
+      recipe = 2
+      root.quit()
+
+  def printVariable():
+      print(variable)
+
+  button1 = Button(root, text="Screwdriver", font = ('Helvetica', '100'), command = recipe1)
+  button1.pack()
+  button2 = Button(root, text="Rum and Coke", font = ('Helvetica', '100'), command = recipe2)
+  button2.pack()
+
+  button3 = Button(root, text="Quit", font = ('Helvetica', '100'), command = root.quit)
+  button3.pack()
+
+  root.mainloop()
+  print(recipe)
+'''
+if recipe == 1:
+  recipe_1(color_pos)
+if recipe == 2:
+  recipe_2(color_pos)
 
 
 if __name__ == "__main__":
