@@ -18,13 +18,11 @@ from cv_bridge import CvBridge, CvBridgeError
 import cv2
 
 import numpy as np
-import argparse
 
 # Instantiate CvBridge
 bridge = CvBridge()
 
 def image_callback(msg):
-    print("Received an image!")
     try:
         # Convert your ROS Image message to OpenCV2
         cv2_img = bridge.imgmsg_to_cv2(msg, "bgr8")
@@ -35,66 +33,137 @@ def image_callback(msg):
         cv2.imwrite('camera_image.jpeg', cv2_img)
 
 
+def increase_brightness(img, value=30):
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    h, s, v = cv2.split(hsv)
+
+    lim = 255 - value
+    v[v > lim] = 255
+    v[v <= lim] += value
+
+    final_hsv = cv2.merge((h, s, v))
+    img = cv2.cvtColor(final_hsv, cv2.COLOR_HSV2BGR)
+    return img
+
 def colorDetect(image):
+	num_bottles = 4
 
-    num_bottles = 4
-    #use cvBridge to convert from ros image to cv image
-    img = cv2.imread(image)
-    image=img[415:570, 575:875]
-    cv2.imshow("cropped",image)
-    cv2.waitKey(0)
+	# ap = argparse.ArgumentParser()
+	# ap.add_argument("-i", "--image")
+	# args = vars(ap.parse_args())
 
-    height, width = image.shape[:2]
+	img = cv2.imread(image)
 
-    Pos1 = image[0:int(height) , 0:int(width*.25)]
+	image=img[415:570, 575:875]
+	#image=increase_brightness(image,value=2000)
 
-    Pos2 = image[0:int(height) , int(width*.25):int(width*.5)]
+	# cv2.imshow("cropped", image)
+	# cv2.waitKey(0)
 
-    Pos3 = image[0:int(height) , int(width*.5):int(width*.75)]
+	# cv2.imwrite('cropped_image.jpg', image)
 
-    Pos4 = image[0:int(height), int(width*.75):int(width)]
+	height, width = image.shape[:2]
 
-    # sub_image = full_image[y_start: y_end, x_start:x_end]
+	# Let's get the starting pixel coordiantes (top left of cropped top)
+	# start_row, start_col = int(0), int(0)
+	# # Let's get the ending pixel coordinates (bottom right of cropped top)
+	# end_row, end_col = int(height), int(width * .25)
 
-    boundaries = [
-        ([31, 41, 130], [67, 68, 160]), #red
-        ([70, 55, 45], [115, 80, 70]), #blue
-        ([74, 128, 105], [100, 150, 133]), #green
-        ([40, 156, 170], [60, 177, 190]) #yellow
-    ]
-
-    images = [Pos1, Pos2, Pos3, Pos4]
-    color_pos = []
-
-    #for "color", red = 1, blue = 2, green = 3, yellow = 4
-
-    for i in range(0, num_bottles):
-
-        color = 1
-        for (lower, upper) in boundaries:
-            lower = np.array(lower, dtype = "uint8")
-            upper = np.array(upper, dtype = "uint8")
-
-            mask = cv2.inRange(images[i], lower, upper)
-            output = cv2.bitwise_and(images[i], images[i], mask = mask)
-
-            if cv2.countNonZero(mask) > 100000:
-                color_pos.append(color) 
+	Pos1 = image[0:int(height) , 0:int(width*.25)]
 
 
-            color = color + 1
+	#cv2.imshow("Far Left", Pos1) 
+	#cv2.waitKey(0) 
+	#cv2.destroyAllWindows()
 
-    for i in range(0, len(color_pos)):
-        if (color_pos[i]) == 1:
-            color_pos[i] = "red"
-        elif (color_pos[i]) == 2:
-            color_pos[i] = "blue"
-        elif (color_pos[i]) == 3:
-            color_pos[i] = "green"
-        else:
-            color_pos[i] = "yellow"
+	# Let's get the starting pixel coordiantes (top left of cropped bottom)
+	# start_row, start_col = int(0), int(width * .25)
+	# # Let's get the ending pixel coordinates (bottom right of cropped bottom)
+	# end_row, end_col = int(height), int(width*.5)
+	Pos2 = image[0:int(height) , int(width*.25):int(width*.5)]
 
-    return color_pos
+	# print start_row, end_row 
+	# print start_col, end_col
+
+	#cv2.imshow("Middle Left", Pos2) 
+	#cv2.waitKey(0) 
+	#cv2.destroyAllWindows()
+
+	# Let's get the starting pixel coordiantes (top left of cropped bottom)
+	# start_row, start_col = int(0), int(width * .5)
+	# # Let's get the ending pixel coordinates (bottom right of cropped bottom)
+	# end_row, end_col = int(height), int(width*.75)
+	Pos3 = image[0:int(height) , int(width*.5):int(width*.75)]
+
+	#cv2.imshow("Middle Right", Pos3) 
+	#cv2.waitKey(0) 
+	#cv2.destroyAllWindows()
+
+	# Let's get the starting pixel coordiantes (top left of cropped bottom)
+	# start_row, start_col = int(0), int(width * .75)
+	# # Let's get the ending pixel coordinates (bottom right of cropped bottom)
+	# end_row, end_col = int(height), int(width)
+	Pos4 = image[0:int(height), int(width*.75):int(width)]
+
+	#cv2.imshow("Far Right", Pos4) 
+	#cv2.waitKey(0) 
+	#cv2.destroyAllWindows()
+
+	# Finally, we can use image.size to give use the number of pixels in each part.
+
+	# cropped_top.size
+	# cropped_bot.size
+
+	
+
+	# sub_image = full_image[y_start: y_end, x_start:x_end]
+
+
+	boundaries = [
+		([33, 35, 85], [56, 55, 127]), #red
+		([39, 24, 19], [50, 31, 28]), #blue
+		([48, 65, 54], [68, 86, 68]), #green
+		([65, 110, 120], [88, 145, 154]) #yellow
+	]
+
+	images = [Pos1, Pos2, Pos3, Pos4]
+	color_pos = []
+
+	#for "color", red = 1, blue = 2, green = 3, yellow = 4
+
+	for i in range(0, num_bottles):
+
+		color = 1
+		temp = 0
+		bestcolor=-1
+		for (lower, upper) in boundaries:
+			lower = np.array(lower, dtype = "uint8")
+			upper = np.array(upper, dtype = "uint8")
+
+			mask = cv2.inRange(images[i], lower, upper)
+			output = cv2.bitwise_and(images[i], images[i], mask = mask)
+			# cv2.imshow("images", np.hstack([image, output]))
+			# cv2.waitKey(0)
+			# print(cv2.countNonZero(mask))
+			if cv2.countNonZero(mask) > temp:
+				temp=cv2.countNonZero(mask)
+				bestcolor=color
+
+			color = color + 1
+
+		color_pos.append(bestcolor) 
+
+	for i in range(0, len(color_pos)):
+		if (color_pos[i]) == 1:
+			color_pos[i] = "red"
+		elif (color_pos[i]) == 2:
+			color_pos[i] = "blue"
+		elif (color_pos[i]) == 3:
+			color_pos[i] = "green"
+		else:
+			color_pos[i] = "yellow"
+
+	return color_pos
 
 def main():
     rospy.init_node('image_listener')
@@ -105,7 +174,7 @@ def main():
     # Spin until ctrl + c
     rospy.sleep(1)
     color_pos=colorDetect('camera_image.jpeg')
-    #print(color_pos[1])
+    print(color_pos)
 
 if __name__ == '__main__':
     main()

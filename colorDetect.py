@@ -12,7 +12,7 @@ def colorDetect(image):
 
 	img = cv2.imread(image)
 
-	# image=img[415:570, 575:875]
+	image=img[415:570, 575:875]
 
 	# cv2.imshow("cropped", image)
 	# cv2.waitKey(0)
@@ -83,7 +83,7 @@ def colorDetect(image):
 		([65, 110, 120], [88, 145, 154]) #yellow
 	]
 
-	images = [Pos3, Pos1, Pos4, Pos2]
+	images = [Pos1, Pos2, Pos3, Pos4]
 	color_pos = []
 
 	#for "color", red = 1, blue = 2, green = 3, yellow = 4

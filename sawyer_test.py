@@ -8,7 +8,7 @@ gripper = intera_interface.Gripper('right_gripper')
 
 
 
-home = {'right_j6': 0.067853515625, 'right_j5': -1.5171982421875, 'right_j4': 0.8077958984375, 'right_j3': 1.82715625, 'right_j2': -1.2073818359375, 'right_j1': 0.865412109375, 'right_j0': 0.384044921875}
+home = {'right_j6': 0.067853515625, 'right_j5': -1.5171982421875, 'right_j4': 0.8077958984375, 'right_j3': 1.82715625, 'right_j2': -1.2073818359375, 'right_j1': 0.865412109375, 'right_j0': 0.384044921875, 'head_pan': -1.0854375}
 
 
 pre_grip_all = {'right_j0': 0.373650390625, 'right_j1': 0.863353515625, 'right_j2': -1.209701171875, 'right_j3': 1.769767578125, 'right_j4': 0.857619140625, 'right_j5': -0.137341796875, 'right_j6': 0.0682666015625}
@@ -34,28 +34,86 @@ pre_grip_4_wp2 = {'right_j0': -0.0898935546875,'right_j1':  1.0576640625, 'right
 grip_4 = {'right_j0': -0.2847705078125, 'right_j1': 1.0234599609375, 'right_j2': -1.8557958984375,'right_j3':  1.2920498046875,'right_j4':  1.054640625,'right_j5':  -0.5713173828125,'right_j6':  0.0856318359375}
 
 
-pre_pour_1 = {'right_j0': 0.311140625,'right_j1': 0.3977373046875,'right_j2': -1.4644501953125,'right_j3': 1.940607421875, 'right_j4': 0.382341796875, 'right_j5': -1.5726767578125,'right_j6': 0.120556640625}
-#pre_pour_2 = {'right_j0': 0.2438056640625, 'right_j1': 0.7280224609375, 'right_j2': -1.8675263671875, 'right_j3': 1.69154296875, 'right_j4': 0.6896865234375, 'right_j5': -1.554111328125, 'right_j6': 0.46082421875}
-#pour = {'right_j0': 0.43605859375, 'right_j1': 0.607818359375, 'right_j2': -1.7963046875, 'right_j3': 1.652931640625, 'right_j4': 0.598212890625, 'right_j5': -1.46297265625, 'right_j6': -2.46848828125}
+#pre_pour_1 = {'right_j0': 0.311140625,'right_j1': 0.3977373046875,'right_j2': -1.4644501953125,'right_j3': 1.940607421875, 'right_j4': 0.382341796875, 'right_j5': -1.5726767578125,'right_j6': 0.120556640625}
+#pre_pour_2 = {'right_j0':0.2418505859375, 'right_j1': 0.6375146484375, 'right_j2': -1.6263388671875, 'right_j3': 1.963833984375, 'right_j4': 0.4402216796875, 'right_j5': -1.494048828125, 'right_j6': 0.39621875}
+#pour = {'right_j0': 0.5096962890625, 'right_j1': 0.4843798828125, 'right_j2': -1.6340087890625, 'right_j3': 1.8865390625, 'right_j4': 0.4020439453125, 'right_j5': -1.5280439453125, 'right_j6': -2.8209287109375}
 
- #new pour =  0.5096962890625, 0.4843798828125, -1.6340087890625, 1.8865390625, 0.4020439453125, -1.5280439453125, -2.8209287109375
 
-#new pre pour 2 =   0.2418505859375, 0.6375146484375, -1.6263388671875, 1.963833984375, 0.4402216796875, -1.494048828125, 0.39621875
+#PRE POUR_1 = 0.1582568359375, 0.862119140625, -1.3791513671875, 1.66685546875, 0.7924189453125, -1.556615234375, -0.0296875
+#PRE POUR 2 = 0.279431640625, 0.725552734375, -1.4572041015625, 1.81466796875, 0.544865234375, -1.3916787109375, -1.5480908203125
 
-pre_pour_2 = {'right_j0':0.2418505859375, 'right_j1': 0.6375146484375, 'right_j2': -1.6263388671875, 'right_j3': 1.963833984375, 'right_j4': 0.4402216796875, 'right_j5': -1.494048828125, 'right_j6': 0.39621875}
-pour = {'right_j0': 0.5096962890625, 'right_j1': 0.4843798828125, 'right_j2': -1.6340087890625, 'right_j3': 1.8865390625, 'right_j4': 0.4020439453125, 'right_j5': -1.5280439453125, 'right_j6': -2.8209287109375}
 
+
+pre_pour_2 = {'right_j0':0.1582568359375, 'right_j1': 0.862119140625, 'right_j2': -1.3791513671875, 'right_j3': 1.66685546875, 'right_j4': 0.7924189453125, 'right_j5': -1.556615234375, 'right_j6': -0.0296875}
+pour = {'right_j0': 0.279431640625, 'right_j1':  0.725552734375, 'right_j2': -1.4572041015625, 'right_j3':1.81466796875, 'right_j4':0.544865234375, 'right_j5': -1.3916787109375, 'right_j6': -1.5480908203125}
+
+
+
+
+#limb.set_joint_position_speed(0.3)
+#gripper.set_position(100)
+limb.move_to_joint_positions(home)
+limb.move_to_joint_positions(pre_grip_all)
+limb.move_to_joint_positions(pre_grip_1_wp1)
+limb.move_to_joint_positions(pre_grip_1_wp2)
+limb.set_joint_position_speed(0.1)
+limb.move_to_joint_positions(grip_1)
+rospy.sleep(.5)
+gripper.set_position(0)
+rospy.sleep(.5)
+limb.set_joint_position_speed(0.3)
+limb.move_to_joint_positions(pre_grip_1_wp2)
+limb.move_to_joint_positions(pre_grip_1_wp1)
+limb.move_to_joint_positions(pre_grip_all)
+limb.move_to_joint_positions(home)
+#limb.move_to_joint_positions(pre_pour_1)
+limb.move_to_joint_positions(pre_pour_2)
+limb.move_to_joint_positions(pour)
+rospy.sleep(2)
+limb.move_to_joint_positions(pre_pour_2)
+#limb.move_to_joint_positions(pre_pour_1)
+limb.move_to_joint_positions(home)
+limb.move_to_joint_positions(pre_grip_all)
+limb.move_to_joint_positions(pre_grip_1_wp1)
+limb.move_to_joint_positions(pre_grip_1_wp2)
+limb.set_joint_position_speed(0.1)
+limb.move_to_joint_positions(grip_1)
+rospy.sleep(.5)
+gripper.set_position(100)
+rospy.sleep(.5)
+limb.move_to_joint_positions(pre_grip_1_wp2)
+limb.set_joint_position_speed(0.3)
+limb.move_to_joint_positions(pre_grip_1_wp1)
+limb.move_to_joint_positions(pre_grip_all)
+limb.move_to_joint_positions(home)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#limb.move_to_joint_positions(grip_4)
+#limb.move_to_joint_positions(home)
+'''
+limb.move_to_joint_positions(pre_pour_2)
+limb.move_to_joint_positions(pre_pour_1)
 
 gripper.set_position(100)
 
 rospy.sleep(2)
 limb.move_to_joint_positions(pre_pour_2)
 limb.move_to_joint_positions(pre_pour_1)
-
-
-
-
-
+'''
+'''
 limb.set_joint_position_speed(0.3)
 gripper.set_position(100)
 limb.move_to_joint_positions(home)
@@ -72,12 +130,12 @@ limb.move_to_joint_positions(pre_grip_1_wp2)
 limb.move_to_joint_positions(pre_grip_1_wp1)
 limb.move_to_joint_positions(pre_grip_all)
 limb.move_to_joint_positions(home)
-limb.move_to_joint_positions(pre_pour_1)
-limb.move_to_joint_positions(pre_pour_2)
+#limb.move_to_joint_positions(pre_pour_1)
+#limb.move_to_joint_positions(pre_pour_2)
 limb.move_to_joint_positions(pour)
 rospy.sleep(2)
-limb.move_to_joint_positions(pre_pour_2)
-limb.move_to_joint_positions(pre_pour_1)
+#limb.move_to_joint_positions(pre_pour_2)
+#limb.move_to_joint_positions(pre_pour_1)
 limb.move_to_joint_positions(home)
 limb.move_to_joint_positions(pre_grip_all)
 limb.move_to_joint_positions(pre_grip_1_wp1)
@@ -92,8 +150,8 @@ limb.set_joint_position_speed(0.3)
 limb.move_to_joint_positions(pre_grip_1_wp1)
 limb.move_to_joint_positions(pre_grip_all)
 limb.move_to_joint_positions(home)
-
-
+'''
+'''
 limb.set_joint_position_speed(0.3)
 gripper.set_position(100)
 limb.move_to_joint_positions(home)
@@ -209,6 +267,5 @@ limb.set_joint_position_speed(0.3)
 limb.move_to_joint_positions(pre_grip_4_wp1)
 limb.move_to_joint_positions(pre_grip_all)
 limb.move_to_joint_positions(home)
-
-
+'''
 
