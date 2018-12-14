@@ -16,7 +16,7 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 # OpenCV2 for saving an image
 import cv2
-
+ 
 import numpy as np
 
 # Instantiate CvBridge
@@ -72,9 +72,9 @@ def colorDetect(image):
 	Pos1 = image[0:int(height) , 0:int(width*.25)]
 
 
-	#cv2.imshow("Far Left", Pos1) 
-	#cv2.waitKey(0) 
-	#cv2.destroyAllWindows()
+	cv2.imshow("Far Left", Pos1) 
+	cv2.waitKey(0) 
+	cv2.destroyAllWindows()
 
 	# Let's get the starting pixel coordiantes (top left of cropped bottom)
 	# start_row, start_col = int(0), int(width * .25)
@@ -85,9 +85,9 @@ def colorDetect(image):
 	# print start_row, end_row 
 	# print start_col, end_col
 
-	#cv2.imshow("Middle Left", Pos2) 
-	#cv2.waitKey(0) 
-	#cv2.destroyAllWindows()
+	cv2.imshow("Middle Left", Pos2) 
+	cv2.waitKey(0) 
+	cv2.destroyAllWindows()
 
 	# Let's get the starting pixel coordiantes (top left of cropped bottom)
 	# start_row, start_col = int(0), int(width * .5)
@@ -95,9 +95,9 @@ def colorDetect(image):
 	# end_row, end_col = int(height), int(width*.75)
 	Pos3 = image[0:int(height) , int(width*.5):int(width*.75)]
 
-	#cv2.imshow("Middle Right", Pos3) 
-	#cv2.waitKey(0) 
-	#cv2.destroyAllWindows()
+	cv2.imshow("Middle Right", Pos3) 
+	cv2.waitKey(0) 
+	cv2.destroyAllWindows()
 
 	# Let's get the starting pixel coordiantes (top left of cropped bottom)
 	# start_row, start_col = int(0), int(width * .75)
@@ -105,9 +105,9 @@ def colorDetect(image):
 	# end_row, end_col = int(height), int(width)
 	Pos4 = image[0:int(height), int(width*.75):int(width)]
 
-	#cv2.imshow("Far Right", Pos4) 
-	#cv2.waitKey(0) 
-	#cv2.destroyAllWindows()
+	cv2.imshow("Far Right", Pos4) 
+	cv2.waitKey(0) 
+	cv2.destroyAllWindows()
 
 	# Finally, we can use image.size to give use the number of pixels in each part.
 
@@ -166,6 +166,9 @@ def colorDetect(image):
 	return color_pos
 
 def main():
+
+	
+
     rospy.init_node('image_listener')
     # Define your image topic
     image_topic = "/io/internal_camera/head_camera/image_raw"

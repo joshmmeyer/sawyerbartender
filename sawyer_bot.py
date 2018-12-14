@@ -5,7 +5,7 @@ import argparse
 import cv2
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
-from tkinter import *
+import tkinter
 
 
 
@@ -41,6 +41,8 @@ pour = {'right_j0': 0.279431640625, 'right_j1':  0.725552734375, 'right_j2': -1.
 #image = None
 
 bridge = CvBridge()
+root = tkinter.Tk()
+recipe=0
 
 #install cvBridge
 def image_callback(msg):
@@ -191,11 +193,11 @@ def recipe_1(node):
     for i in range(4):
         if node[i]=="green":
           get_replace_bottle(i,True)
-          pour_bottle(2)
+          pour_bottle(3)
           get_replace_bottle(i,False)
         elif node[i]=="red":
           get_replace_bottle(i,True)
-          pour_bottle(5)
+          pour_bottle(8)
           get_replace_bottle(i,False)
             
 
@@ -203,11 +205,11 @@ def recipe_2(node):
     for i in range(4):
         if node[i]=="yellow":
           get_replace_bottle(i,True)
-          pour_bottle(2)
+          pour_bottle(8)
           get_replace_bottle(i,False)
         elif node[i]=="blue":
           get_replace_bottle(i,True)
-          pour_bottle(5)
+          pour_bottle(3)
           get_replace_bottle(i,False)
 
 
@@ -298,9 +300,18 @@ def pour_bottle(amount):
   limb.move_to_joint_positions(pre_pour_2)
   limb.move_to_joint_positions(home)
   
-  
-  
-  
+def recipe1():
+    global recipe
+    recipe = 2
+    root.quit()
+
+def recipe2():
+    global recipe
+    recipe = 1
+    root.quit()
+
+def printVariable():
+    print(variable)
   
 def main():
   # Define your image topic
@@ -312,42 +323,57 @@ def main():
   color_pos=colorDetect('camera_image.jpeg')
   print(color_pos)
 
-  #recipe_2(color_pos)
-  #get_replace_bottle(0,True)
-  #pour_bottle(2)
-  #get_replace_bottle(0,False)    
-  root = Tk()
-  recipe=0
-'''
-  def recipe1():
-      global recipe
-      recipe = 1
-      root.quit()
 
-  def recipe2():
-      global recipe
-      recipe = 2
-      root.quit()
 
-  def printVariable():
-      print(variable)
+  
+  button1 = tkinter.Button(root, text="Screwdriver",font = ('Helvetica', '100'), command = recipe1)
 
-  button1 = Button(root, text="Screwdriver", font = ('Helvetica', '100'), command = recipe1)
   button1.pack()
-  button2 = Button(root, text="Rum and Coke", font = ('Helvetica', '100'), command = recipe2)
+  button2 = tkinter.Button(root, text="Rum and Coke", font = ('Helvetica', '100'), command = recipe2)
   button2.pack()
 
-  button3 = Button(root, text="Quit", font = ('Helvetica', '100'), command = root.quit)
+  button3 = tkinter.Button(root, text="Quit", font = ('Helvetica', '100'), command = root.quit)
   button3.pack()
+
+
+
+
 
   root.mainloop()
   print(recipe)
-'''
-if recipe == 1:
-  recipe_1(color_pos)
-if recipe == 2:
-  recipe_2(color_pos)
+
+  if recipe == 1:
+    recipe_1(color_pos)
+  if recipe == 2:
+    recipe_2(color_pos)
 
 
 if __name__ == "__main__":
 	main()
+
+'''
+  #recipe_2(color_pos)
+  #get_replace_bottle(0,True)
+  #pour_bottle(2)
+  #get_replace_bottle(0,False)  
+  root.title("Sawyer Bartender")
+  chooseDrink=tkinter.Label(root, text="Choose a Drink", font=('Helvetica','15'))
+  chooseDrink.place(x=187, y=130)
+  screwdriverPic=tkinter.PhotoImage(file="ClassicScrewdriver.png")
+  
+  chooseDrink=tkinter.Label(root, text="Screwdriver", font=('Helvetica','10'))
+  chooseDrink.place(x=35, y=50)
+  chooseDrink1=tkinter.Label(root, text="Rum and Coke", font=('Helvetica','10'))
+  chooseDrink1.place(x=400, y=50)
+  chooseDrink2=tkinter.Label(root, text="Welcome to the Sawyer Bartender!", font=('Helvetica 17 underline'))
+  chooseDrink2.place(x=75, y=1)
+  #tkinter.button1.pack(side=LEFT)
+  rumandcokePic=tkinter.PhotoImage(file="CruzanWithCola.png")
+  button2 = tkinter.Button(root, image=rumandcokePic, height=142,width=140,command = recipe2)
+  #text="Rum and Coke", font = ('Helvetica', '10')
+  #button2.pack(side=RIGHT)
+
+  button3 = tkinter.Button(root, text="Quit", font = ('Helvetica', '10'), command = root.quit)
+  #button3.pack(side=BOTTOM)
+'''
+

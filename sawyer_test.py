@@ -50,14 +50,7 @@ pour = {'right_j0': 0.279431640625, 'right_j1':  0.725552734375, 'right_j2': -1.
 
 
 
-#limb.set_joint_position_speed(0.3)
-#gripper.set_position(100)
-limb.move_to_joint_positions(home)
-limb.move_to_joint_positions(pre_grip_all)
-limb.move_to_joint_positions(pre_grip_1_wp1)
-limb.move_to_joint_positions(pre_grip_1_wp2)
-limb.set_joint_position_speed(0.1)
-limb.move_to_joint_positions(grip_1)
+'''
 rospy.sleep(.5)
 gripper.set_position(0)
 rospy.sleep(.5)
@@ -66,12 +59,12 @@ limb.move_to_joint_positions(pre_grip_1_wp2)
 limb.move_to_joint_positions(pre_grip_1_wp1)
 limb.move_to_joint_positions(pre_grip_all)
 limb.move_to_joint_positions(home)
-#limb.move_to_joint_positions(pre_pour_1)
+limb.move_to_joint_positions(pre_pour_1)
 limb.move_to_joint_positions(pre_pour_2)
 limb.move_to_joint_positions(pour)
 rospy.sleep(2)
 limb.move_to_joint_positions(pre_pour_2)
-#limb.move_to_joint_positions(pre_pour_1)
+limb.move_to_joint_positions(pre_pour_1)
 limb.move_to_joint_positions(home)
 limb.move_to_joint_positions(pre_grip_all)
 limb.move_to_joint_positions(pre_grip_1_wp1)
@@ -103,7 +96,7 @@ limb.move_to_joint_positions(home)
 
 #limb.move_to_joint_positions(grip_4)
 #limb.move_to_joint_positions(home)
-'''
+
 limb.move_to_joint_positions(pre_pour_2)
 limb.move_to_joint_positions(pre_pour_1)
 
@@ -112,8 +105,8 @@ gripper.set_position(100)
 rospy.sleep(2)
 limb.move_to_joint_positions(pre_pour_2)
 limb.move_to_joint_positions(pre_pour_1)
-'''
-'''
+
+
 limb.set_joint_position_speed(0.3)
 gripper.set_position(100)
 limb.move_to_joint_positions(home)
@@ -150,8 +143,8 @@ limb.set_joint_position_speed(0.3)
 limb.move_to_joint_positions(pre_grip_1_wp1)
 limb.move_to_joint_positions(pre_grip_all)
 limb.move_to_joint_positions(home)
-'''
-'''
+
+
 limb.set_joint_position_speed(0.3)
 gripper.set_position(100)
 limb.move_to_joint_positions(home)
@@ -226,7 +219,7 @@ limb.set_joint_position_speed(0.3)
 limb.move_to_joint_positions(pre_grip_3_wp1)
 limb.move_to_joint_positions(pre_grip_all)
 limb.move_to_joint_positions(home)
-
+'''
 
 
 
@@ -247,12 +240,10 @@ limb.move_to_joint_positions(pre_grip_4_wp2)
 limb.move_to_joint_positions(pre_grip_4_wp1)
 limb.move_to_joint_positions(pre_grip_all)
 limb.move_to_joint_positions(home)
-limb.move_to_joint_positions(pre_pour_1)
 limb.move_to_joint_positions(pre_pour_2)
 limb.move_to_joint_positions(pour)
 rospy.sleep(2)
 limb.move_to_joint_positions(pre_pour_2)
-limb.move_to_joint_positions(pre_pour_1)
 limb.move_to_joint_positions(home)
 limb.move_to_joint_positions(pre_grip_all)
 limb.move_to_joint_positions(pre_grip_4_wp1)
@@ -267,5 +258,5 @@ limb.set_joint_position_speed(0.3)
 limb.move_to_joint_positions(pre_grip_4_wp1)
 limb.move_to_joint_positions(pre_grip_all)
 limb.move_to_joint_positions(home)
-'''
+
 
